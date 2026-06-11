@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Бруис | Органикалық химия негіздері</title>
+
+  <style>
+    :root {
+      --bg: #f7f4ef;
+      --card: #ffffff;
+      --text: #1f2933;
+      --muted: #6b7280;
+      --green: #15803d;
+      --green-dark: #14532d;
+      --purple: #7c3aed;
+      --orange: #ea580c;
+      --red: #dc2626;
+      --border: #e5e7eb;
+      --soft-green: #ecfdf5;
+      --soft-purple: #f5f3ff;
+      --soft-orange: #fff7ed;
+      --soft-red: #fff1f2;
+      --shadow: 0 14px 34px rgba(31, 41, 55, 0.09);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124, 58, 237, 0.08), transparent 30%),
+        radial-gradient(circle at top right, rgba(21, 128, 61, 0.10), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 12px;
+    }
+
+    .hero {
+      background:
+        linear-gradient(135deg, rgba(20, 83, 45, 0.96), rgba(76, 29, 149, 0.94), rgba(124, 45, 18, 0.94)),
+        url("data:image/svg+xml,%3Csvg width='400' height='260' viewBox='0 0 400 260' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='rgba(255,255,255,0.18)' stroke-width='3'%3E%3Ccircle cx='80' cy='80' r='16'/%3E%3Ccircle cx='150' cy='120' r='16'/%3E%3Ccircle cx='220' cy='80' r='16'/%3E%3Cline x1='96' y1='84' x2='134' y2='112'/%3E%3Cline x1='166' y1='112' x2='204' y2='88'/%3E%3Ccircle cx='290' cy='135' r='16'/%3E%3Cline x1='236' y1='88' x2='276' y2='126'/%3E%3C/g%3E%3C/svg%3E");
+      color: white;
+      border-radius: 30px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "C=C  SN1  SN2  pKa  C₆H₆  R–OH";
+      position: absolute;
+      right: -45px;
+      bottom: 4px;
+      font-size: 40px;
+      font-weight: 950;
+      opacity: 0.09;
+      transform: rotate(-7deg);
+      white-space: nowrap;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.23);
+      color: #dcfce7;
+      font-size: 13px;
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 8vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -1px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero p {
+      margin: 12px 0 0;
+      color: #f0fdf4;
+      font-size: 15px;
+      max-width: 760px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .author-box {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.13);
+      border: 1px solid rgba(255,255,255,0.22);
+      position: relative;
+      z-index: 1;
+    }
+
+    .author-box h2 {
+      margin: 0 0 8px;
+      font-size: 21px;
+    }
+
+    .author-box p {
+      margin: 0 0 10px;
+      font-size: 14px;
+    }
+
+    .warning-text {
+      color: #ffedd5 !important;
+      font-weight: 800;
+    }
+
+    .top-block-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(247, 244, 239, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 0;
+      margin: 12px -12px 0;
+    }
+
+    .top-block-nav-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 12px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .top-block-nav-inner::-webkit-scrollbar {
+      display: none;
+    }
+
+    .block-link {
+      min-width: 74px;
+      text-decoration: none;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 10px 8px;
+      color: var(--green-dark);
+      text-align: center;
+      box-shadow: 0 6px 16px rgba(31,41,55,0.06);
+      flex-shrink: 0;
+    }
+
+    .block-link b {
+      display: block;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .block-link span {
+      display: block;
+      font-size: 11px;
+      margin-top: 4px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .block-link:hover {
+      background: var(--green);
+      color: white;
+      border-color: var(--green);
+    }
+
+    .block-link:hover span {
+      color: #dcfce7;
+    }
+
+    .section-title {
+      margin: 24px 2px 14px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 25px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-title p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .study-block {
+      scroll-margin-top: 100px;
+      margin: 22px 0;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .study-block-header {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .block-number {
+      width: 44px;
+      height: 44px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      font-weight: 950;
+      color: white;
+      background: linear-gradient(135deg, var(--green), var(--purple));
+      flex-shrink: 0;
+    }
+
+    .study-block h2 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    .study-block-header p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .mini-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 14px 0;
+    }
+
+    .mini-tabs button {
+      border: 1px solid var(--border);
+      background: var(--soft-green);
+      color: var(--green-dark);
+      border-radius: 14px;
+      padding: 10px 6px;
+      font-size: 13px;
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .mini-tabs button.active {
+      background: var(--green);
+      color: white;
+      border-color: var(--green);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    details {
+      background: #fbfefa;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 850;
+      color: var(--green-dark);
+    }
+
+    details p {
+      color: #344054;
+      margin-bottom: 0;
+      font-size: 15px;
+    }
+
+    .formula-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .formula {
+      background: #111827;
+      color: white;
+      padding: 14px;
+      border-radius: 16px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .term-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .term {
+      background: #fbfefa;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .term b {
+      color: var(--green-dark);
+    }
+
+    .term p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .question {
+      background: #fbfefa;
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--green);
+      border-radius: 18px;
+      padding: 15px;
+      margin-bottom: 12px;
+    }
+
+    .question p {
+      margin: 0 0 12px;
+      font-weight: 850;
+      font-size: 15px;
+    }
+
+    .option {
+      display: block;
+      padding: 11px;
+      border-radius: 14px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      margin: 8px 0;
+      font-size: 14px;
+    }
+
+    .option.correct {
+      background: #dcfce7;
+      border-color: var(--green);
+    }
+
+    .option.wrong {
+      background: #fee2e2;
+      border-color: var(--red);
+    }
+
+    .explain {
+      display: none;
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 14px;
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 14px;
+    }
+
+    .explain.show {
+      display: block;
+    }
+
+    .result {
+      display: none;
+      background: linear-gradient(135deg, #ecfdf5, #f5f3ff);
+      border: 1px solid #bbf7d0;
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .result.show {
+      display: block;
+    }
+
+    .score {
+      margin: 0;
+      font-size: 34px;
+      font-weight: 950;
+      color: var(--green-dark);
+    }
+
+    .check-btn {
+      background: var(--green);
+      color: white;
+      width: 100%;
+      margin-top: 8px;
+      border: 0;
+      border-radius: 15px;
+      padding: 13px 14px;
+      font-weight: 850;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .copyright-note {
+      background: var(--soft-red);
+      border: 1px solid #fecdd3;
+      border-radius: 18px;
+      padding: 15px;
+      margin-top: 18px;
+      color: #9f1239;
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 28px 0 40px;
+    }
+
+    @media (max-width: 680px) {
+      .app {
+        padding: 10px;
+      }
+
+      .top-block-nav {
+        margin-left: -10px;
+        margin-right: -10px;
+      }
+
+      .hero {
+        padding: 20px;
+        border-radius: 24px;
+      }
+
+      .study-block {
+        padding: 15px;
+        border-radius: 22px;
+      }
+
+      .mini-tabs {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .block-link {
+        min-width: 68px;
+        padding: 9px 7px;
+      }
+
+      .block-link span {
+        font-size: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <header class="hero">
+      <div class="badge">🧬 Органикалық химия · Бруис 1–2 бөлім</div>
+
+      <h1>Органикалық химия негіздері</h1>
+
+      <p>
+        Бұл сайт Паула Юрканис Бруис еңбегі бойынша органикалық химияны
+        магистратураға түсуге арналған кешенді тестілеу құрылымына сай қайталауға арналған.
+      </p>
+
+      <div class="author-box">
+        <h2>📘 Дайындық материалы</h2>
+
+        <p>
+          Негізгі бағыттар: молекулалық құрылым, функционалдық топтар,
+          номенклатура, стереохимия, қышқыл-негіздік қасиеттер, реакция механизмдері,
+          алифатты, ароматты және биоорганикалық қосылыстар.
+        </p>
+
+        <p class="warning-text">
+          ⚠️ Автор: Назерке. Барлық құқық авторға тиесілі.
+          Бұл материалды автордың рұқсатынсыз сатуға, көшіруге, таратуға,
+          ақылы курс ретінде қолдануға немесе коммерциялық мақсатта пайдалануға болмайды.
+        </p>
+      </div>
+    </header>
+
+    <nav class="top-block-nav">
+      <div class="top-block-nav-inner">
+        <a class="block-link" href="#block1"><b>1</b><span>Құрылым</span></a>
+        <a class="block-link" href="#block2"><b>2</b><span>Байланыс</span></a>
+        <a class="block-link" href="#block3"><b>3</b><span>Стерео</span></a>
+        <a class="block-link" href="#block4"><b>4</b><span>Қышқыл</span></a>
+        <a class="block-link" href="#block5"><b>5</b><span>Механизм</span></a>
+        <a class="block-link" href="#block6"><b>6</b><span>SN1/SN2</span></a>
+        <a class="block-link" href="#block7"><b>7</b><span>Карбонил</span></a>
+        <a class="block-link" href="#block8"><b>8</b><span>Аромат</span></a>
+        <a class="block-link" href="#block9"><b>9</b><span>Енолят</span></a>
+        <a class="block-link" href="#block10"><b>10</b><span>Биоорг</span></a>
+      </div>
+    </nav>
+
+    <section class="section-title">
+      <h2>Оқу блоктары</h2>
+      <p>
+        Әр блокта қысқа теория, негізгі формулалар/реакциялар, терминдер және тест сұрақтары болады.
+      </p>
+    </section>
+    <section id="block1" class="study-block">
+      <div class="study-block-header">
+        <div class="block-number">1</div>
+        <div>
+          <h2>Молекулалық құрылым және номенклатура</h2>
+          <p>
+            Органикалық молекулаларды жазу тәсілдері, қаңқалық формула,
+            функционалдық топтар, IUPAC атау ережелері және изомерлерді тану.
+          </p>
+        </div>
+      </div>
+
+      <div class="mini-tabs">
+        <button class="active" onclick="openTab(event, 'block1', 'theory')">Теория</button>
+        <button onclick="openTab(event, 'block1', 'formula')">Формула</button>
+        <button onclick="openTab(event, 'block1', 'terms')">Термин</button>
+        <button onclick="openTab(event, 'block1', 'test')">Тест</button>
+      </div>
+
+      <div class="tab-content active" data-tab="theory">
+        <details open>
+          <summary>Органикалық химиядағы құрылымдық жазу</summary>
+          <p>
+            Органикалық химияда заттың қасиетін түсіну үшін тек молекулалық формула
+            жеткіліксіз. Бірдей формуласы бар заттардың құрылысы әртүрлі болуы мүмкін,
+            сондықтан құрылымдық формула, қаңқалық формула және функционалдық топтар
+            өте маңызды.
+          </p>
+        </details>
+
+        <details>
+          <summary>Қаңқалық формула</summary>
+          <p>
+            Қаңқалық формулада көміртек пен оған байланысқан сутек атомдары көбіне
+            жазылмайды. Сызықтың ұшы немесе бұрышы көміртек атомын білдіреді.
+            Көміртек төрт валентті болғандықтан, жетіспейтін байланыстар сутекпен
+            толықтырылады деп есептеледі.
+          </p>
+        </details>
+
+        <details>
+          <summary>Функционалдық топтың маңызы</summary>
+          <p>
+            Функционалдық топ — органикалық молекуланың негізгі химиялық қасиетін
+            анықтайтын атом немесе атомдар тобы. Көмірсутек бөлігі көбіне салыстырмалы
+            тұрақты болады, ал реакцияға түсетін негізгі бөлік функционалдық топ болып саналады.
+          </p>
+        </details>
+
+        <details>
+          <summary>Негізгі функционалдық топтар</summary>
+          <p>
+            Органикалық химияда жиі кездесетін функционалдық топтарға спирттердегі -OH,
+            альдегидтердегі -CHO, кетондардағы &gt;C=O, карбон қышқылдарындағы -COOH,
+            аминдердегі -NH₂, эфирлердегі -O-, амидтердегі -CONH₂ және галогентуындылардағы
+            -F, -Cl, -Br, -I жатады.
+          </p>
+        </details>
+
+        <details>
+          <summary>IUPAC атау берудің жалпы логикасы</summary>
+          <p>
+            Органикалық қосылысты атау үшін алдымен ең жоғары басымдықтағы функционалдық
+            топ анықталады. Содан кейін сол топты қамтитын ең ұзын көміртек тізбегі таңдалады.
+            Тізбек функционалдық топ ең кіші нөмір алатындай етіп нөмірленеді.
+            Қосымша орынбасарлар префикс ретінде жазылады.
+          </p>
+        </details>
+
+        <details>
+          <summary>Көміртек тізбегінің атауы</summary>
+          <p>
+            Тізбек ұзындығы атаудың түбірін береді: метан — 1 көміртек, этан — 2,
+            пропан — 3, бутан — 4, пентан — 5, гексан — 6, гептан — 7,
+            октан — 8, нонан — 9, декан — 10 көміртек.
+          </p>
+        </details>
+
+        <details>
+          <summary>Қос және үш байланыстар</summary>
+          <p>
+            Егер молекулада қос байланыс болса, атауда -ен жалғауы қолданылады.
+            Егер үш байланыс болса, -ин жалғауы қолданылады. Қос немесе үш байланыстың
+            орны санмен көрсетіледі: бут-2-ен, пент-1-ин сияқты.
+          </p>
+        </details>
+
+        <details>
+          <summary>Орынбасарлар және нөмірлеу</summary>
+          <p>
+            Негізгі тізбекке қосылған атомдар немесе топтар орынбасарлар деп аталады.
+            Мысалы, метил, этил, хлор, бром, нитро, гидрокси. Олардың орны санмен
+            көрсетіледі: 2-метилбутан, 3-хлорпентан.
+          </p>
+        </details>
+
+        <details>
+          <summary>Изомерия</summary>
+          <p>
+            Изомерлер — молекулалық формуласы бірдей, бірақ құрылысы немесе кеңістіктегі
+            орналасуы әртүрлі қосылыстар. Құрылымдық изомерияда атомдардың байланысу реті
+            өзгеше болады, ал стереоизомерияда атомдардың байланысу реті бірдей, бірақ
+            кеңістіктегі орналасуы әртүрлі болады.
+          </p>
+        </details>
+
+        <details>
+          <summary>Органикалық қосылысты танудағы басты қадам</summary>
+          <p>
+            Кез келген күрделі органикалық молекуланы көргенде алдымен функционалдық
+            топтарын бөліп қарау керек. Содан кейін негізгі тізбекті, қаныққан-қанықпаған
+            бөліктерді, сақинаны, ароматты жүйені және орынбасарларды анықтау қажет.
+          </p>
+        </details>
+      </div>
+
+      <div class="tab-content" data-tab="formula">
+        <div class="formula-list">
+          <div class="formula">Көміртек валенттілігі: C — 4 байланыс түзеді</div>
+          <div class="formula">Оттек валенттілігі: O — 2 байланыс түзеді</div>
+          <div class="formula">Азот валенттілігі: N — 3 байланыс түзеді</div>
+          <div class="formula">Сутек және галогендер: H, F, Cl, Br, I — 1 байланыс түзеді</div>
+          <div class="formula">Алкандар: CnH₂n+₂</div>
+          <div class="formula">Алкендер: CnH₂n</div>
+          <div class="formula">Алкиндер: CnH₂n−₂</div>
+          <div class="formula">Спирт функционалдық тобы: R–OH</div>
+          <div class="formula">Альдегид функционалдық тобы: R–CHO</div>
+          <div class="formula">Кетон функционалдық тобы: R–CO–R'</div>
+          <div class="formula">Карбон қышқылы: R–COOH</div>
+          <div class="formula">Амин: R–NH₂</div>
+          <div class="formula">Эфир: R–O–R'</div>
+          <div class="formula">Күрделі эфир: R–COO–R'</div>
+        </div>
+      </div>
+
+      <div class="tab-content" data-tab="terms">
+        <div class="term-list">
+          <div class="term">
+            <b>Органикалық химия</b>
+            <p>Көміртек қосылыстарының құрылысы, қасиеті және реакцияларын зерттейтін химия бөлімі.</p>
+          </div>
+
+          <div class="term">
+            <b>Құрылымдық формула</b>
+            <p>Молекулада атомдардың қалай байланысқанын көрсететін формула.</p>
+          </div>
+
+          <div class="term">
+            <b>Қаңқалық формула</b>
+            <p>Көміртек қаңқасы сызықтармен берілетін қысқартылған құрылымдық жазу.</p>
+          </div>
+
+          <div class="term">
+            <b>Функционалдық топ</b>
+            <p>Молекуланың негізгі химиялық қасиетін анықтайтын атом немесе атомдар тобы.</p>
+          </div>
+
+          <div class="term">
+            <b>Орынбасар</b>
+            <p>Негізгі көміртек тізбегіне қосылған атом немесе топ.</p>
+          </div>
+
+          <div class="term">
+            <b>IUPAC номенклатурасы</b>
+            <p>Органикалық қосылыстарды халықаралық жүйе бойынша атау ережелері.</p>
+          </div>
+
+          <div class="term">
+            <b>Изомерлер</b>
+            <p>Молекулалық формуласы бірдей, бірақ құрылысы немесе кеңістіктегі орналасуы әртүрлі заттар.</p>
+          </div>
+
+          <div class="term">
+            <b>Алкан</b>
+            <p>Тек дара байланыстары бар қаныққан көмірсутек.</p>
+          </div>
+
+          <div class="term">
+            <b>Алкен</b>
+            <p>Құрамында кемінде бір қос байланысы бар қанықпаған көмірсутек.</p>
+          </div>
+
+          <div class="term">
+            <b>Алкин</b>
+            <p>Құрамында кемінде бір үш байланысы бар қанықпаған көмірсутек.</p>
+          </div>
+
+          <div class="term">
+            <b>Ароматты қосылыс</b>
+            <p>Делокалданған π-электрондық жүйесі бар тұрақты циклді қосылыс.</p>
+          </div>
+
+          <div class="term">
+            <b>Кекуле формуласы</b>
+            <p>Бензол сақинасын кезектескен дара және қос байланыстар арқылы көрсету тәсілі.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" data-tab="test">
+        <div id="block1Result" class="result"></div>
+
+        <div class="question" data-answer="2">
+          <p>1. Қаңқалық формулада сызықтың ұшы немесе бұрышы көбіне нені білдіреді?</p>
+          <label class="option"><input type="radio" name="b1q1" value="0"> Міндетті түрде оттек атомын</label>
+          <label class="option"><input type="radio" name="b1q1" value="1"> Сутек атомының жеке молекуласын</label>
+          <label class="option"><input type="radio" name="b1q1" value="2"> Көміртек атомын</label>
+          <label class="option"><input type="radio" name="b1q1" value="3"> Тек қос байланысты</label>
+          <label class="option"><input type="radio" name="b1q1" value="4"> Электрон жұбының зарядын</label>
+          <div class="explain">Дұрыс жауап: C. Қаңқалық формулада сызықтың ұшы мен бұрыштары көміртек атомдарын білдіреді.</div>
+        </div>
+
+        <div class="question" data-answer="4">
+          <p>2. Органикалық молекуланың негізгі химиялық қасиетін көбіне не анықтайды?</p>
+          <label class="option"><input type="radio" name="b1q2" value="0"> Тек молекула массасы</label>
+          <label class="option"><input type="radio" name="b1q2" value="1"> Тек агрегаттық күйі</label>
+          <label class="option"><input type="radio" name="b1q2" value="2"> Тек түсі</label>
+          <label class="option"><input type="radio" name="b1q2" value="3"> Тек еріткіштің табиғаты</label>
+          <label class="option"><input type="radio" name="b1q2" value="4"> Функционалдық тобы</label>
+          <div class="explain">Дұрыс жауап: E. Функционалдық топ молекуланың негізгі реакциялық қабілетін анықтайды.</div>
+        </div>
+
+        <div class="question" data-answer="0">
+          <p>3. Спирттерге тән функционалдық топ:</p>
+          <label class="option"><input type="radio" name="b1q3" value="0"> -OH</label>
+          <label class="option"><input type="radio" name="b1q3" value="1"> -COOH</label>
+          <label class="option"><input type="radio" name="b1q3" value="2"> -CHO</label>
+          <label class="option"><input type="radio" name="b1q3" value="3"> -NO₂</label>
+          <label class="option"><input type="radio" name="b1q3" value="4"> -CN</label>
+          <div class="explain">Дұрыс жауап: A. Спирттердің функционалдық тобы — гидроксил тобы, -OH.</div>
+        </div>
+
+        <div class="question" data-answer="3">
+          <p>4. Карбон қышқылдарының функционалдық тобы:</p>
+          <label class="option"><input type="radio" name="b1q4" value="0"> -OH</label>
+          <label class="option"><input type="radio" name="b1q4" value="1"> -NH₂</label>
+          <label class="option"><input type="radio" name="b1q4" value="2"> -CHO</label>
+          <label class="option"><input type="radio" name="b1q4" value="3"> -COOH</label>
+          <label class="option"><input type="radio" name="b1q4" value="4"> -O-</label>
+          <div class="explain">Дұрыс жауап: D. Карбон қышқылдары құрамында карбоксил тобы -COOH болады.</div>
+        </div>
+
+        <div class="question" data-answer="1">
+          <p>5. Альдегидтерге тән функционалдық топ:</p>
+          <label class="option"><input type="radio" name="b1q5" value="0"> -COOH</label>
+          <label class="option"><input type="radio" name="b1q5" value="1"> -CHO</label>
+          <label class="option"><input type="radio" name="b1q5" value="2"> -NH₂</label>
+          <label class="option"><input type="radio" name="b1q5" value="3"> -O-</label>
+          <label class="option"><input type="radio" name="b1q5" value="4"> -SH</label>
+          <div class="explain">Дұрыс жауап: B. Альдегидтердің функционалдық тобы — -CHO.</div>
+        </div>
+
+        <div class="question" data-answer="2">
+          <p>6. IUPAC атауын құрастыруда бірінші анықталатын маңызды бөлік:</p>
+          <label class="option"><input type="radio" name="b1q6" value="0"> Молекуланың түсі</label>
+          <label class="option"><input type="radio" name="b1q6" value="1"> Заттың қай ыдыста тұрғаны</label>
+          <label class="option"><input type="radio" name="b1q6" value="2"> Ең жоғары басымдықтағы функционалдық топ</label>
+          <label class="option"><input type="radio" name="b1q6" value="3"> Тек сутек атомдарының саны</label>
+          <label class="option"><input type="radio" name="b1q6" value="4"> Заттың балқу температурасы ғана</label>
+          <div class="explain">Дұрыс жауап: C. Атау беруде алдымен негізгі функционалдық топ анықталады.</div>
+        </div>
+
+        <div class="question" data-answer="4">
+          <p>7. Бутан атауы негізгі тізбекте қанша көміртек атомы бар екенін көрсетеді?</p>
+          <label class="option"><input type="radio" name="b1q7" value="0"> 1</label>
+          <label class="option"><input type="radio" name="b1q7" value="1"> 2</label>
+          <label class="option"><input type="radio" name="b1q7" value="2"> 3</label>
+          <label class="option"><input type="radio" name="b1q7" value="3"> 5</label>
+          <label class="option"><input type="radio" name="b1q7" value="4"> 4</label>
+          <div class="explain">Дұрыс жауап: E. “Бут-” түбірі төрт көміртек атомы бар тізбекті білдіреді.</div>
+        </div>
+
+        <div class="question" data-answer="0">
+          <p>8. Қос байланысы бар көмірсутек атауында қолданылатын жалғау:</p>
+          <label class="option"><input type="radio" name="b1q8" value="0"> -ен</label>
+          <label class="option"><input type="radio" name="b1q8" value="1"> -ан</label>
+          <label class="option"><input type="radio" name="b1q8" value="2"> -ин</label>
+          <label class="option"><input type="radio" name="b1q8" value="3"> -ол</label>
+          <label class="option"><input type="radio" name="b1q8" value="4"> -аль</label>
+          <div class="explain">Дұрыс жауап: A. Қос байланысы бар көмірсутектер алкендер, атауында -ен қолданылады.</div>
+        </div>
+
+        <div class="question" data-answer="3">
+          <p>9. Үш байланысы бар көмірсутек атауында қолданылатын жалғау:</p>
+          <label class="option"><input type="radio" name="b1q9" value="0"> -ан</label>
+          <label class="option"><input type="radio" name="b1q9" value="1"> -ен</label>
+          <label class="option"><input type="radio" name="b1q9" value="2"> -ол</label>
+          <label class="option"><input type="radio" name="b1q9" value="3"> -ин</label>
+          <label class="option"><input type="radio" name="b1q9" value="4"> -амин</label>
+          <div class="explain">Дұрыс жауап: D. Үш байланысы бар көмірсутектер алкиндер, атауында -ин қолданылады.</div>
+        </div>
+
+        <div class="question" data-answer="1">
+          <p>10. Молекулалық формуласы бірдей, бірақ құрылысы әртүрлі заттар қалай аталады?</p>
+          <label class="option"><input type="radio" name="b1q10" value="0"> Гомологтар</label>
+          <label class="option"><input type="radio" name="b1q10" value="1"> Изомерлер</label>
+          <label class="option"><input type="radio" name="b1q10" value="2"> Электролиттер</label>
+          <label class="option"><input type="radio" name="b1q10" value="3"> Изотоптар</label>
+          <label class="option"><input type="radio" name="b1q10" value="4"> Катализаторлар</label>
+          <div class="explain">Дұрыс жауап: B. Изомерлердің формуласы бірдей, бірақ құрылысы немесе кеңістіктегі орналасуы әртүрлі болады.</div>
+        </div>
+
+        <div class="question" data-answer="4">
+          <p>11. Кетондарға тән құрылымдық белгі:</p>
+          <label class="option"><input type="radio" name="b1q11" value="0"> Молекула соңында -CHO тобы болуы</label>
+          <label class="option"><input type="radio" name="b1q11" value="1"> Тек иондық байланыстан тұруы</label>
+          <label class="option"><input type="radio" name="b1q11" value="2"> Міндетті түрде бензол сақинасының болуы</label>
+          <label class="option"><input type="radio" name="b1q11" value="3"> Тек -NH₂ тобының болуы</label>
+          <label class="option"><input type="radio" name="b1q11" value="4"> Карбонил тобының екі көміртек қалдығы арасында орналасуы</label>
+          <div class="explain">Дұрыс жауап: E. Кетондарда карбонил тобы R–CO–R' түрінде орналасады.</div>
+        </div>
+
+        <div class="question" data-answer="2">
+          <p>12. Қай қатарда функционалдық топ пен қосылыс класы дұрыс сәйкестендірілген?</p>
+          <label class="option"><input type="radio" name="b1q12" value="0"> -COOH — спирт</label>
+          <label class="option"><input type="radio" name="b1q12" value="1"> -OH — альдегид</label>
+          <label class="option"><input type="radio" name="b1q12" value="2"> -NH₂ — амин</label>
+          <label class="option"><input type="radio" name="b1q12" value="3"> -CHO — кетон</label>
+          <label class="option"><input type="radio" name="b1q12" value="4"> -O- — карбон қышқылы</label>
+          <div class="explain">Дұрыс жауап: C. -NH₂ тобы аминдерге тән.</div>
+        </div>
+
+        <div class="question" data-answer="0">
+          <p>13. Бензол сақинасын кезектескен дара және қос байланыстармен көрсету тәсілі:</p>
+          <label class="option"><input type="radio" name="b1q13" value="0"> Кекуле формуласы</label>
+          <label class="option"><input type="radio" name="b1q13" value="1"> Авогадро заңы</label>
+          <label class="option"><input type="radio" name="b1q13" value="2"> Электролиз теңдеуі</label>
+          <label class="option"><input type="radio" name="b1q13" value="3"> Нернст теңдеуі</label>
+          <label class="option"><input type="radio" name="b1q13" value="4"> Гендерсон теңдеуі</label>
+          <div class="explain">Дұрыс жауап: A. Бензолды кезектескен байланыстармен көрсету Кекуле формуласы деп аталады.</div>
+        </div>
+
+        <div class="question" data-answer="3">
+          <p>14. Органикалық молекуланы талдауда ең дұрыс бастапқы әрекет:</p>
+          <label class="option"><input type="radio" name="b1q14" value="0"> Тек молекуланың түсін сипаттау</label>
+          <label class="option"><input type="radio" name="b1q14" value="1"> Тек массасын жаттау</label>
+          <label class="option"><input type="radio" name="b1q14" value="2"> Барлық сутекті жеке-жеке санаумен шектелу</label>
+          <label class="option"><input type="radio" name="b1q14" value="3"> Функционалдық топтарды және негізгі тізбекті анықтау</label>
+          <label class="option"><input type="radio" name="b1q14" value="4"> Затты бірден бейорганикалық тұз деп қабылдау</label>
+          <div class="explain">Дұрыс жауап: D. Органикалық молекуланы тану үшін алдымен функционалдық топтар мен негізгі көміртек қаңқасы анықталады.</div>
+        </div>
+
+        <div class="question" data-answer="1">
+          <p>15. Этил этаноат сияқты күрделі эфир атауында екі бөлік нені білдіреді?</p>
+          <label class="option"><input type="radio" name="b1q15" value="0"> Екі түрлі металл катионын</label>
+          <label class="option"><input type="radio" name="b1q15" value="1"> Спирт бөлігі мен қышқыл бөлігін</label>
+          <label class="option"><input type="radio" name="b1q15" value="2"> Тек екі сутек атомын</label>
+          <label class="option"><input type="radio" name="b1q15" value="3"> Бір ғана галоген атомын</label>
+          <label class="option"><input type="radio" name="b1q15" value="4"> Тек бензол сақинасын</label>
+          <div class="explain">Дұрыс жауап: B. Күрделі эфир атауында алкил бөлігі спирттен, ал алканоат бөлігі карбон қышқылынан шығады.</div>
+        </div>
+
+        <button class="check-btn" onclick="checkBlock('block1')">Тестті тексеру</button>
+      </div>
+    </section>
+    <section id="block2" class="study-block">
+      <div class="study-block-header">
+        <div class="block-number">2</div>
+        <div>
+          <h2>Атом құрылысы, байланыс және гибридтену</h2>
+          <p>
+            Валенттілік, иондық және коваленттік байланыс, σ және π байланыстар,
+            sp³, sp², sp гибридтену, байланыс полюстілігі, конъюгация және ароматтылық.
+          </p>
+        </div>
+      </div>
+
+      <div class="mini-tabs">
+        <button class="active" onclick="openTab(event, 'block2', 'theory')">Теория</button>
+        <button onclick="openTab(event, 'block2', 'formula')">Формула</button>
+        <button onclick="openTab(event, 'block2', 'terms')">Термин</button>
+        <button onclick="openTab(event, 'block2', 'test')">Тест</button>
+      </div>
+
+      <div class="tab-content active" data-tab="theory">
+        <details open>
+          <summary>Органикалық химиядағы байланыс</summary>
+          <p>
+            Органикалық қосылыстардың қасиеті көбіне көміртек атомының байланыс түзу
+            қабілетіне байланысты. Көміртек төрт валентті, сондықтан ол басқа атомдармен
+            төрт коваленттік байланыс түзе алады. Органикалық молекулаларда көбіне C–C,
+            C–H, C–O, C–N, C–X байланыстары кездеседі.
+          </p>
+        </details>
+
+        <details>
+          <summary>Иондық және коваленттік байланыс</summary>
+          <p>
+            Иондық байланыс электрон толық беріліп, қарама-қарсы зарядталған иондар
+            түзілгенде пайда болады. Коваленттік байланыс ортақ электрон жұбы арқылы
+            түзіледі. Органикалық қосылыстардың басым көпшілігінде коваленттік байланыс
+            негізгі рөл атқарады.
+          </p>
+        </details>
+
+        <details>
+          <summary>σ және π байланыстар</summary>
+          <p>
+            σ-байланыс атом орбитальдарының түзу сызық бойымен қабысуы арқылы түзіледі
+            және дара байланыстың негізі болып табылады. π-байланыс орбитальдардың жанама
+            қабысуынан пайда болады. Қос байланыста бір σ және бір π байланыс, ал үш
+            байланыста бір σ және екі π байланыс болады.
+          </p>
+        </details>
+
+        <details>
+          <summary>sp³ гибридтену</summary>
+          <p>
+            sp³ гибридтенген көміртек төрт σ-байланыс түзеді және кеңістікте тетраэдрлік
+            орналасады. Байланыс бұрышы шамамен 109,5°. Алкандардағы көміртек атомдары
+            көбіне sp³ гибридтенген.
+          </p>
+        </details>
+
+        <details>
+          <summary>sp² гибридтену</summary>
+          <p>
+            sp² гибридтенген көміртек үш σ-байланыс және бір π-байланыс түзе алады.
+            Мұндай атомдар жазық үшбұрышты орналасады, байланыс бұрышы шамамен 120°.
+            Алкендердегі қос байланысқан көміртектер sp² гибридтенген.
+          </p>
+        </details>
+
+        <details>
+          <summary>sp гибридтену</summary>
+          <p>
+            sp гибридтенген көміртек екі σ-байланыс және екі π-байланыс түзе алады.
+            Кеңістіктегі пішіні сызықтық, байланыс бұрышы 180°. Алкиндердегі үш байланысқан
+            көміртектер sp гибридтенген.
+          </p>
+        </details>
+
+        <details>
+          <summary>Байланыс полюстілігі</summary>
+          <p>
+            Егер байланысқан атомдардың электртерістілігі әртүрлі болса, электрон тығыздығы
+            электртерістілігі жоғары атомға қарай ығысады. Сол кезде байланыс полюсті болады.
+            Мысалы, C–O және C–Cl байланыстары C–C немесе C–H байланысына қарағанда полюстірек.
+          </p>
+        </details>
+
+        <details>
+          <summary>Индуктивтік әсер</summary>
+          <p>
+            Индуктивтік әсер — σ-байланыстар арқылы электрон тығыздығының ығысуы.
+            Электрон тартушы топтар молекуладағы электрон тығыздығын өзіне қарай тартады,
+            ал электрон беруші топтар электрон тығыздығын арттыра алады.
+          </p>
+        </details>
+
+        <details>
+          <summary>Конъюгация</summary>
+          <p>
+            Конъюгация — π-байланыстар немесе бос электрон жұптары кезектесіп орналасқанда
+            электрондардың бірнеше атомға делокалдануы. Конъюгация молекуланы тұрақтандырады
+            және оның реакциялық қабілетіне әсер етеді.
+          </p>
+        </details>
+
+        <details>
+          <summary>Ароматтылық</summary>
+          <p>
+            Ароматты жүйе циклді, жазық және үздіксіз π-электрондық бұлты бар тұрақты жүйе.
+            Бензол — ароматты қосылыстың негізгі мысалы. Ароматты тұрақтылықтың салдарынан
+            бензол қосылу реакцияларынан гөрі орынбасу реакцияларына бейім.
+          </p>
+        </details>
+      </div>
+
+      <div class="tab-content" data-tab="formula">
+        <div class="formula-list">
+          <div class="formula">Дара байланыс: 1 σ</div>
+          <div class="formula">Қос байланыс: 1 σ + 1 π</div>
+          <div class="formula">Үш байланыс: 1 σ + 2 π</div>
+          <div class="formula">sp³: тетраэдр, бұрыш ≈ 109,5°</div>
+          <div class="formula">sp²: жазық үшбұрыш, бұрыш ≈ 120°</div>
+          <div class="formula">sp: сызықтық, бұрыш = 180°</div>
+          <div class="formula">Алкандардағы C: көбіне sp³</div>
+          <div class="formula">Алкендердегі C=C көміртектері: sp²</div>
+          <div class="formula">Алкиндердегі C≡C көміртектері: sp</div>
+          <div class="formula">Электртерістілік айырмасы ↑ → байланыс полюстілігі ↑</div>
+          <div class="formula">Конъюгация → электрондардың делокалдануы → тұрақтылық ↑</div>
+          <div class="formula">Бензол: C₆H₆, ароматты π-жүйе</div>
+        </div>
+      </div>
+
+      <div class="tab-content" data-tab="terms">
+        <div class="term-list">
+          <div class="term">
+            <b>Валенттілік</b>
+            <p>Атомның басқа атомдармен байланыс түзу қабілеті.</p>
+          </div>
+
+          <div class="term">
+            <b>Коваленттік байланыс</b>
+            <p>Ортақ электрон жұбы арқылы түзілетін химиялық байланыс.</p>
+          </div>
+
+          <div class="term">
+            <b>Иондық байланыс</b>
+            <p>Қарама-қарсы зарядталған иондардың электростатикалық тартылысы.</p>
+          </div>
+
+          <div class="term">
+            <b>σ-байланыс</b>
+            <p>Орбитальдардың түзу сызық бойымен қабысуынан түзілетін байланыс.</p>
+          </div>
+
+          <div class="term">
+            <b>π-байланыс</b>
+            <p>Орбитальдардың жанама қабысуынан түзілетін байланыс.</p>
+          </div>
+
+          <div class="term">
+            <b>Гибридтену</b>
+            <p>Атом орбитальдарының араласып, жаңа гибрид орбитальдар түзуі.</p>
+          </div>
+
+          <div class="term">
+            <b>sp³ гибридтену</b>
+            <p>Төрт σ-байланысқа тән тетраэдрлік орналасу.</p>
+          </div>
+
+          <div class="term">
+            <b>sp² гибридтену</b>
+            <p>Қос байланысқа тән жазық үшбұрышты орналасу.</p>
+          </div>
+
+          <div class="term">
+            <b>sp гибридтену</b>
+            <p>Үш байланысқа тән сызықтық орналасу.</p>
+          </div>
+
+          <div class="term">
+            <b>Полюсті байланыс</b>
+            <p>Электрон тығыздығы бір атомға қарай ығысқан коваленттік байланыс.</p>
+          </div>
+
+          <div class="term">
+            <b>Конъюгация</b>
+            <p>π-электрондардың бірнеше атом арасында делокалдануы.</p>
+          </div>
+
+          <div class="term">
+            <b>Ароматтылық</b>
+            <p>Циклді, жазық, тұрақты делокалданған π-жүйе қасиеті.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" data-tab="test">
+        <div id="block2Result" class="result"></div>
+
+        <div class="question" data-answer="2">
+          <p>1. Органикалық қосылыстарда көміртек атомы әдетте неше байланыс түзеді?</p>
+          <label class="option"><input type="radio" name="b2q1" value="0"> Бір</label>
+          <label class="option"><input type="radio" name="b2q1" value="1"> Екі</label>
+          <label class="option"><input type="radio" name="b2q1" value="2"> Төрт</label>
+          <label class="option"><input type="radio" name="b2q1" value="3"> Алты</label>
+          <label class="option"><input type="radio" name="b2q1" value="4"> Сегіз</label>
+          <div class="explain">Дұрыс жауап: C. Көміртек органикалық қосылыстарда көбіне төрт валентті болады.</div>
+        </div>
+
+        <div class="question" data-answer="4">
+          <p>2. Қос байланыстың дұрыс сипаттамасы:</p>
+          <label class="option"><input type="radio" name="b2q2" value="0"> Екі σ-байланыстан тұрады</label>
+          <label class="option"><input type="radio" name="b2q2" value="1"> Тек бір π-байланыстан тұрады</label>
+          <label class="option"><input type="radio" name="b2q2" value="2"> Бір иондық және бір сутектік байланыстан тұрады</label>
+          <label class="option"><input type="radio" name="b2q2" value="3"> Үш π-байланыстан тұрады</label>
+          <label class="option"><input type="radio" name="b2q2" value="4"> Бір σ және бір π байланыстан тұрады</label>
+          <div class="explain">Дұрыс жауап: E. Қос байланыста бір σ және бір π байланыс болады.</div>
+        </div>
+
+        <div class="question" data-answer="0">
+          <p>3. Үш байланыста қандай байланыстар болады?</p>
+          <label class="option"><input type="radio" name="b2q3" value="0"> Бір σ және екі π</label>
+          <label class="option"><input type="radio" name="b2q3" value="1"> Үш σ</label>
+          <label class="option"><input type="radio" name="b2q3" value="2"> Екі σ және бір π</label>
+          <label class="option"><input type="radio" name="b2q3" value="3"> Бір σ ғана</label>
+          <label class="option"><input type="radio" name="b2q3" value="4"> Бір π ғана</label>
+          <div class="explain">Дұрыс жауап: A. Үш байланыста бір σ және екі π байланыс болады.</div>
+        </div>
+
+        <div class="question" data-answer="3">
+          <p>4. Алкандардағы көміртек атомдары көбіне қандай гибридтенуде болады?</p>
+          <label class="option"><input type="radio" name="b2q4" value="0"> sp</label>
+          <label class="option"><input type="radio" name="b2q4" value="1"> sp²</label>
+          <label class="option"><input type="radio" name="b2q4" value="2"> d²sp³</label>
+          <label class="option"><input type="radio" name="b2q4" value="3"> sp³</label>
+          <label class="option"><input type="radio" name="b2q4" value="4"> sp³d²</label>
+          <div class="explain">Дұрыс жауап: D. Алкандарда көміртек төрт дара σ-байланыс түзеді, сондықтан sp³ гибридтенген.</div>
+        </div>
+
+        <div class="question" data-answer="1">
+          <p>5. sp³ гибридтенген көміртекке тән кеңістіктік пішін:</p>
+          <label class="option"><input type="radio" name="b2q5" value="0"> Сызықтық</label>
+          <label class="option"><input type="radio" name="b2q5" value="1"> Тетраэдрлік</label>
+          <label class="option"><input type="radio" name="b2q5" value="2"> Жазық үшбұрышты</label>
+          <label class="option"><input type="radio" name="b2q5" value="3"> Квадратты жазық</label>
+          <label class="option"><input type="radio" name="b2q5" value="4"> Октаэдрлік</label>
+          <div class="explain">Дұрыс жауап: B. sp³ гибридтену тетраэдрлік орналасумен байланысты.</div>
+        </div>
+
+        <div class="question" data-answer="4">
+          <p>6. Алкендердегі қос байланысқан көміртектердің гибридтенуі:</p>
+          <label class="option"><input type="radio" name="b2q6" value="0"> sp</label>
+          <label class="option"><input type="radio" name="b2q6" value="1"> sp³</label>
+          <label class="option"><input type="radio" name="b2q6" value="2"> d²sp³</label>
+          <label class="option"><input type="radio" name="b2q6" value="3"> sp³d</label>
+          <label class="option"><input type="radio" name="b2q6" value="4"> sp²</label>
+          <div class="explain">Дұрыс жауап: E. Алкендегі C=C көміртектері sp² гибридтенген.</div>
+        </div>
+
+        <div class="question" data-answer="2">
+          <p>7. sp² гибридтенген көміртекке тән байланыс бұрышы шамамен:</p>
+          <label class="option"><input type="radio" name="b2q7" value="0"> 90°</label>
+          <label class="option"><input type="radio" name="b2q7" value="1"> 109,5°</label>
+          <label class="option"><input type="radio" name="b2q7" value="2"> 120°</label>
+          <label class="option"><input type="radio" name="b2q7" value="3"> 180°</label>
+          <label class="option"><input type="radio" name="b2q7" value="4"> 60°</label>
+          <div class="explain">Дұрыс жауап: C. sp² гибридтенуде атомдар жазық үшбұрышты орналасады, бұрыш шамамен 120°.</div>
+        </div>
+
+        <div class="question" data-answer="0">
+          <p>8. Алкиндердегі үш байланысқан көміртек атомдары қандай гибридтенуде?</p>
+          <label class="option"><input type="radio" name="b2q8" value="0"> sp</label>
+          <label class="option"><input type="radio" name="b2q8" value="1"> sp²</label>
+          <label class="option"><input type="radio" name="b2q8" value="2"> sp³</label>
+          <label class="option"><input type="radio" name="b2q8" value="3"> sp³d</label>
+          <label class="option"><input type="radio" name="b2q8" value="4"> d²sp³</label>
+          <div class="explain">Дұрыс жауап: A. Алкиндердегі C≡C көміртектері sp гибридтенген.</div>
+        </div>
+
+        <div class="question" data-answer="3">
+          <p>9. sp гибридтенген атомға тән пішін және бұрыш:</p>
+          <label class="option"><input type="radio" name="b2q9" value="0"> Тетраэдрлік, 109,5°</label>
+          <label class="option"><input type="radio" name="b2q9" value="1"> Жазық үшбұрышты, 120°</label>
+          <label class="option"><input type="radio" name="b2q9" value="2"> Бұрышты, 104,5°</label>
+          <label class="option"><input type="radio" name="b2q9" value="3"> Сызықтық, 180°</label>
+          <label class="option"><input type="radio" name="b2q9" value="4"> Пирамида, 107°</label>
+          <div class="explain">Дұрыс жауап: D. sp гибридтенген атомдар сызықтық орналасады, бұрышы 180°.</div>
+        </div>
+
+        <div class="question" data-answer="1">
+          <p>10. Байланыс полюстілігін анықтауда ең маңызды фактор:</p>
+          <label class="option"><input type="radio" name="b2q10" value="0"> Молекуланың түсі</label>
+          <label class="option"><input type="radio" name="b2q10" value="1"> Атомдардың электртерістілік айырмасы</label>
+          <label class="option"><input type="radio" name="b2q10" value="2"> Заттың массасы ғана</label>
+          <label class="option"><input type="radio" name="b2q10" value="3"> Ыдыстың көлемі</label>
+          <label class="option"><input type="radio" name="b2q10" value="4"> Тек көміртек саны</label>
+          <div class="explain">Дұрыс жауап: B. Электртерістілік айырмасы артқан сайын байланыс полюстілігі артады.</div>
+        </div>
+
+        <div class="question" data-answer="4">
+          <p>11. Қай байланыс көбірек полюсті болуы ықтимал?</p>
+          <label class="option"><input type="radio" name="b2q11" value="0"> C–C</label>
+          <label class="option"><input type="radio" name="b2q11" value="1"> C–H</label>
+          <label class="option"><input type="radio" name="b2q11" value="2"> H–H</label>
+          <label class="option"><input type="radio" name="b2q11" value="3"> Cl–Cl</label>
+          <label class="option"><input type="radio" name="b2q11" value="4"> C–O</label>
+          <div class="explain">Дұрыс жауап: E. C және O электртерістілігі айқын өзгеше, сондықтан C–O байланысы полюсті.</div>
+        </div>
+
+        <div class="question" data-answer="2">
+          <p>12. Конъюгацияның негізгі мәні:</p>
+          <label class="option"><input type="radio" name="b2q12" value="0"> Электрондардың толық жойылуы</label>
+          <label class="option"><input type="radio" name="b2q12" value="1"> Тек молекуланың массасының артуы</label>
+          <label class="option"><input type="radio" name="b2q12" value="2"> π-электрондардың бірнеше атом арасында делокалдануы</label>
+          <label class="option"><input type="radio" name="b2q12" value="3"> Иондық кристалл түзілуі</label>
+          <label class="option"><input type="radio" name="b2q12" value="4"> Тек сутектік байланыс түзілуі</label>
+          <div class="explain">Дұрыс жауап: C. Конъюгацияда π-электрондар бір ғана байланыста емес, бірнеше атомға таралады.</div>
+        </div>
+
+        <div class="question" data-answer="0">
+          <p>13. Конъюгация молекулаға көбіне қандай әсер береді?</p>
+          <label class="option"><input type="radio" name="b2q13" value="0"> Тұрақтылықты арттырады</label>
+          <label class="option"><input type="radio" name="b2q13" value="1"> Барлық байланысты иондық етеді</label>
+          <label class="option"><input type="radio" name="b2q13" value="2"> Молекуланы міндетті түрде газға айналдырады</label>
+          <label class="option"><input type="radio" name="b2q13" value="3"> Көміртек валенттілігін 8-ге жеткізеді</label>
+          <label class="option"><input type="radio" name="b2q13" value="4"> Электрондарды толық жоғалтады</label>
+          <div class="explain">Дұрыс жауап: A. Делокалдану энергияны төмендетіп, жүйені тұрақтандырады.</div>
+        </div>
+
+        <div class="question" data-answer="3">
+          <p>14. Бензолға тән негізгі қасиет:</p>
+          <label class="option"><input type="radio" name="b2q14" value="0"> Тек sp³ көміртектерден тұруы</label>
+          <label class="option"><input type="radio" name="b2q14" value="1"> Ашық тізбекті алкан болуы</label>
+          <label class="option"><input type="radio" name="b2q14" value="2"> Тек иондық байланыс түзуі</label>
+          <label class="option"><input type="radio" name="b2q14" value="3"> Ароматты делокалданған π-жүйесінің болуы</label>
+          <label class="option"><input type="radio" name="b2q14" value="4"> Тек үш байланыстардан тұруы</label>
+          <div class="explain">Дұрыс жауап: D. Бензолда тұрақты ароматты π-жүйе бар.</div>
+        </div>
+
+        <div class="question" data-answer="1">
+          <p>15. Ароматты тұрақтылыққа байланысты бензол көбіне қандай реакцияға бейім?</p>
+          <label class="option"><input type="radio" name="b2q15" value="0"> Қосылу реакциясына ғана</label>
+          <label class="option"><input type="radio" name="b2q15" value="1"> Орынбасу реакциясына</label>
+          <label class="option"><input type="radio" name="b2q15" value="2"> Толық гидролизге</label>
+          <label class="option"><input type="radio" name="b2q15" value="3"> Тек бейтараптануға</label>
+          <label class="option"><input type="radio" name="b2q15" value="4"> Тек электролизге</label>
+          <div class="explain">Дұрыс жауап: B. Бензол ароматты тұрақтылығын сақтайтын орынбасу реакцияларына көбірек түседі.</div>
+        </div>
+
+        <button class="check-btn" onclick="checkBlock('block2')">Тестті тексеру</button>
+      </div>
+    </section>
